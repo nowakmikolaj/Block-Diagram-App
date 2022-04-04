@@ -88,7 +88,7 @@ namespace BlockDiagramApp
             this.Canvas.BackColor = System.Drawing.Color.White;
             this.Canvas.Location = new System.Drawing.Point(0, 0);
             this.Canvas.Name = "Canvas";
-            this.Canvas.Size = new System.Drawing.Size(751, 652);
+            this.Canvas.Size = new System.Drawing.Size(750, 650);
             this.Canvas.TabIndex = 0;
             this.Canvas.TabStop = false;
             this.Canvas.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Canvas_MouseDown);
@@ -225,13 +225,13 @@ namespace BlockDiagramApp
             // 
             // newDiagramButton
             // 
-            this.newDiagramButton.Enabled = false;
             this.newDiagramButton.Location = new System.Drawing.Point(3, 3);
             this.newDiagramButton.Name = "newDiagramButton";
             this.newDiagramButton.Size = new System.Drawing.Size(192, 31);
             this.newDiagramButton.TabIndex = 0;
             this.newDiagramButton.Text = "Nowy Schemat";
             this.newDiagramButton.UseVisualStyleBackColor = true;
+            this.newDiagramButton.Click += new System.EventHandler(this.newDiagramButton_Click);
             // 
             // loadDiagramButton
             // 
@@ -262,6 +262,7 @@ namespace BlockDiagramApp
             this.IsMdiContainer = true;
             this.MinimumSize = new System.Drawing.Size(800, 600);
             this.Name = "AppForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Block Diagram App";
             this.splitContainer.Panel1.ResumeLayout(false);
             this.splitContainer.Panel2.ResumeLayout(false);

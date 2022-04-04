@@ -31,7 +31,6 @@ namespace BlockDiagramApp
             // Keep selected radio button
             selectedBlock = opButton;
         }
-
         private void CreateBitmap(int width, int height)
         {
             bitmap = new Bitmap(width, height);
@@ -41,6 +40,7 @@ namespace BlockDiagramApp
                 g.Clear(Color.White);
             }
         }
+
 
         private void Canvas_MouseDown(object sender, MouseEventArgs e)
         {
@@ -75,8 +75,22 @@ namespace BlockDiagramApp
             }
         }
 
-        
+        private void newDiagramButton_Click(object sender, EventArgs e)
+        {
+            NewDiagramForm diagram = new NewDiagramForm(Canvas.Size.Width, Canvas.Size.Height);
 
+            diagram.ShowDialog();
+            diagram.Focus();
+
+            Canvas.Width = diagram.newWidth;
+            Canvas.Height = diagram.newHeight;
+
+            CreateBitmap(diagram.newWidth, diagram.newHeight);
+
+
+            Canvas.Refresh();
+
+        }
     }
 
     
