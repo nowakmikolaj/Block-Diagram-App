@@ -84,9 +84,9 @@ namespace BlockDiagramApp
             // 
             this.splitContainer.Panel2.Controls.Add(this.tableLayoutPanel3);
             this.splitContainer.Panel2.Cursor = System.Windows.Forms.Cursors.Default;
-            this.splitContainer.Panel2MinSize = 205;
+            this.splitContainer.Panel2MinSize = 210;
             this.splitContainer.Size = new System.Drawing.Size(984, 761);
-            this.splitContainer.SplitterDistance = 770;
+            this.splitContainer.SplitterDistance = 767;
             this.splitContainer.SplitterWidth = 1;
             this.splitContainer.TabIndex = 0;
             // 
@@ -99,6 +99,7 @@ namespace BlockDiagramApp
             this.Canvas.TabIndex = 0;
             this.Canvas.TabStop = false;
             this.Canvas.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Canvas_MouseDown);
+            this.Canvas.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Canvas_MouseUp);
             // 
             // tableLayoutPanel3
             // 
@@ -114,7 +115,7 @@ namespace BlockDiagramApp
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 22.56569F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 77.43431F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 113F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(213, 761);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(216, 761);
             this.tableLayoutPanel3.TabIndex = 0;
             // 
             // langBox
@@ -123,7 +124,7 @@ namespace BlockDiagramApp
             this.langBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.langBox.Location = new System.Drawing.Point(3, 650);
             this.langBox.Name = "langBox";
-            this.langBox.Size = new System.Drawing.Size(207, 108);
+            this.langBox.Size = new System.Drawing.Size(210, 108);
             this.langBox.TabIndex = 2;
             this.langBox.TabStop = false;
             this.langBox.Text = "Język";
@@ -140,7 +141,7 @@ namespace BlockDiagramApp
             this.langLayoutPanel.RowCount = 2;
             this.langLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.langLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.langLayoutPanel.Size = new System.Drawing.Size(201, 86);
+            this.langLayoutPanel.Size = new System.Drawing.Size(204, 86);
             this.langLayoutPanel.TabIndex = 2;
             // 
             // plButton
@@ -149,7 +150,7 @@ namespace BlockDiagramApp
             this.plButton.Enabled = false;
             this.plButton.Location = new System.Drawing.Point(3, 3);
             this.plButton.Name = "plButton";
-            this.plButton.Size = new System.Drawing.Size(195, 37);
+            this.plButton.Size = new System.Drawing.Size(198, 37);
             this.plButton.TabIndex = 0;
             this.plButton.Text = "Polski";
             this.plButton.UseVisualStyleBackColor = true;
@@ -160,7 +161,7 @@ namespace BlockDiagramApp
             this.enButton.Enabled = false;
             this.enButton.Location = new System.Drawing.Point(3, 46);
             this.enButton.Name = "enButton";
-            this.enButton.Size = new System.Drawing.Size(195, 37);
+            this.enButton.Size = new System.Drawing.Size(198, 37);
             this.enButton.TabIndex = 1;
             this.enButton.Text = "English";
             this.enButton.UseVisualStyleBackColor = true;
@@ -171,7 +172,7 @@ namespace BlockDiagramApp
             this.editBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.editBox.Location = new System.Drawing.Point(3, 149);
             this.editBox.Name = "editBox";
-            this.editBox.Size = new System.Drawing.Size(207, 495);
+            this.editBox.Size = new System.Drawing.Size(210, 495);
             this.editBox.TabIndex = 1;
             this.editBox.TabStop = false;
             this.editBox.Text = "Edycja";
@@ -179,9 +180,9 @@ namespace BlockDiagramApp
             // editLayoutPanel
             // 
             this.editLayoutPanel.ColumnCount = 3;
-            this.editLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 65F));
-            this.editLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 65F));
-            this.editLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 74F));
+            this.editLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 68F));
+            this.editLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 68F));
+            this.editLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 622F));
             this.editLayoutPanel.Controls.Add(this.textEditor, 0, 3);
             this.editLayoutPanel.Controls.Add(this.label1, 0, 2);
             this.editLayoutPanel.Controls.Add(this.deleteButton, 2, 1);
@@ -198,7 +199,7 @@ namespace BlockDiagramApp
             this.editLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 67F));
             this.editLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.editLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.editLayoutPanel.Size = new System.Drawing.Size(201, 473);
+            this.editLayoutPanel.Size = new System.Drawing.Size(204, 473);
             this.editLayoutPanel.TabIndex = 4;
             // 
             // textEditor
@@ -209,7 +210,7 @@ namespace BlockDiagramApp
             this.textEditor.Location = new System.Drawing.Point(3, 157);
             this.textEditor.Multiline = true;
             this.textEditor.Name = "textEditor";
-            this.textEditor.Size = new System.Drawing.Size(198, 313);
+            this.textEditor.Size = new System.Drawing.Size(752, 313);
             this.textEditor.TabIndex = 1;
             this.textEditor.TextChanged += new System.EventHandler(this.textEditor_TextChanged);
             // 
@@ -220,7 +221,7 @@ namespace BlockDiagramApp
             this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label1.Location = new System.Drawing.Point(3, 134);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(198, 20);
+            this.label1.Size = new System.Drawing.Size(752, 20);
             this.label1.TabIndex = 0;
             this.label1.Text = "Tekst zaznaczonego bloku:";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -228,13 +229,12 @@ namespace BlockDiagramApp
             // deleteButton
             // 
             this.deleteButton.Appearance = System.Windows.Forms.Appearance.Button;
-            this.deleteButton.AutoSize = true;
-            this.deleteButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.deleteButton.Dock = System.Windows.Forms.DockStyle.Left;
             this.deleteButton.FlatAppearance.CheckedBackColor = System.Drawing.SystemColors.Control;
             this.deleteButton.Image = global::BlockDiagramApp.Properties.Resources.trash;
-            this.deleteButton.Location = new System.Drawing.Point(133, 70);
+            this.deleteButton.Location = new System.Drawing.Point(139, 70);
             this.deleteButton.Name = "deleteButton";
-            this.deleteButton.Size = new System.Drawing.Size(68, 61);
+            this.deleteButton.Size = new System.Drawing.Size(62, 61);
             this.deleteButton.TabIndex = 11;
             this.deleteButton.UseVisualStyleBackColor = true;
             this.deleteButton.CheckedChanged += new System.EventHandler(this.selectedBlock_CheckedChanged);
@@ -247,7 +247,7 @@ namespace BlockDiagramApp
             this.stopButton.Image = global::BlockDiagramApp.Properties.Resources.stop1;
             this.stopButton.Location = new System.Drawing.Point(3, 70);
             this.stopButton.Name = "stopButton";
-            this.stopButton.Size = new System.Drawing.Size(59, 61);
+            this.stopButton.Size = new System.Drawing.Size(62, 61);
             this.stopButton.TabIndex = 10;
             this.stopButton.UseVisualStyleBackColor = true;
             this.stopButton.CheckedChanged += new System.EventHandler(this.selectedBlock_CheckedChanged);
@@ -255,14 +255,12 @@ namespace BlockDiagramApp
             // linkButton
             // 
             this.linkButton.Appearance = System.Windows.Forms.Appearance.Button;
-            this.linkButton.AutoSize = true;
-            this.linkButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.linkButton.Enabled = false;
+            this.linkButton.Dock = System.Windows.Forms.DockStyle.Left;
             this.linkButton.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.linkButton.Image = global::BlockDiagramApp.Properties.Resources.link;
-            this.linkButton.Location = new System.Drawing.Point(133, 3);
+            this.linkButton.Location = new System.Drawing.Point(139, 3);
             this.linkButton.Name = "linkButton";
-            this.linkButton.Size = new System.Drawing.Size(68, 61);
+            this.linkButton.Size = new System.Drawing.Size(62, 61);
             this.linkButton.TabIndex = 9;
             this.linkButton.UseVisualStyleBackColor = true;
             this.linkButton.CheckedChanged += new System.EventHandler(this.selectedBlock_CheckedChanged);
@@ -272,9 +270,9 @@ namespace BlockDiagramApp
             this.decButton.Appearance = System.Windows.Forms.Appearance.Button;
             this.decButton.Dock = System.Windows.Forms.DockStyle.Fill;
             this.decButton.Image = global::BlockDiagramApp.Properties.Resources.diamond5;
-            this.decButton.Location = new System.Drawing.Point(68, 70);
+            this.decButton.Location = new System.Drawing.Point(71, 70);
             this.decButton.Name = "decButton";
-            this.decButton.Size = new System.Drawing.Size(59, 61);
+            this.decButton.Size = new System.Drawing.Size(62, 61);
             this.decButton.TabIndex = 3;
             this.decButton.Tag = "";
             this.decButton.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -288,9 +286,9 @@ namespace BlockDiagramApp
             this.opButton.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.opButton.Dock = System.Windows.Forms.DockStyle.Fill;
             this.opButton.Image = global::BlockDiagramApp.Properties.Resources.rect2;
-            this.opButton.Location = new System.Drawing.Point(68, 3);
+            this.opButton.Location = new System.Drawing.Point(71, 3);
             this.opButton.Name = "opButton";
-            this.opButton.Size = new System.Drawing.Size(59, 61);
+            this.opButton.Size = new System.Drawing.Size(62, 61);
             this.opButton.TabIndex = 2;
             this.opButton.Tag = "";
             this.opButton.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -306,7 +304,7 @@ namespace BlockDiagramApp
             this.startButton.Image = global::BlockDiagramApp.Properties.Resources.start2;
             this.startButton.Location = new System.Drawing.Point(3, 3);
             this.startButton.Name = "startButton";
-            this.startButton.Size = new System.Drawing.Size(59, 61);
+            this.startButton.Size = new System.Drawing.Size(62, 61);
             this.startButton.TabIndex = 8;
             this.startButton.TabStop = true;
             this.startButton.UseVisualStyleBackColor = true;
@@ -318,7 +316,7 @@ namespace BlockDiagramApp
             this.fileBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fileBox.Location = new System.Drawing.Point(3, 3);
             this.fileBox.Name = "fileBox";
-            this.fileBox.Size = new System.Drawing.Size(207, 140);
+            this.fileBox.Size = new System.Drawing.Size(210, 140);
             this.fileBox.TabIndex = 0;
             this.fileBox.TabStop = false;
             this.fileBox.Text = "Plik";
@@ -338,7 +336,7 @@ namespace BlockDiagramApp
             this.fileLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 34.66667F));
             this.fileLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 32F));
             this.fileLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.fileLayoutPanel.Size = new System.Drawing.Size(201, 118);
+            this.fileLayoutPanel.Size = new System.Drawing.Size(204, 118);
             this.fileLayoutPanel.TabIndex = 3;
             // 
             // newDiagramButton
@@ -346,7 +344,7 @@ namespace BlockDiagramApp
             this.newDiagramButton.Dock = System.Windows.Forms.DockStyle.Fill;
             this.newDiagramButton.Location = new System.Drawing.Point(3, 3);
             this.newDiagramButton.Name = "newDiagramButton";
-            this.newDiagramButton.Size = new System.Drawing.Size(195, 34);
+            this.newDiagramButton.Size = new System.Drawing.Size(198, 34);
             this.newDiagramButton.TabIndex = 0;
             this.newDiagramButton.Text = "Nowy Schemat";
             this.newDiagramButton.UseVisualStyleBackColor = true;
@@ -358,7 +356,7 @@ namespace BlockDiagramApp
             this.loadDiagramButton.Enabled = false;
             this.loadDiagramButton.Location = new System.Drawing.Point(3, 80);
             this.loadDiagramButton.Name = "loadDiagramButton";
-            this.loadDiagramButton.Size = new System.Drawing.Size(195, 35);
+            this.loadDiagramButton.Size = new System.Drawing.Size(198, 35);
             this.loadDiagramButton.TabIndex = 2;
             this.loadDiagramButton.Text = "Wczytaj Schemat";
             this.loadDiagramButton.UseVisualStyleBackColor = true;
@@ -369,7 +367,7 @@ namespace BlockDiagramApp
             this.saveDiagramButton.Enabled = false;
             this.saveDiagramButton.Location = new System.Drawing.Point(3, 43);
             this.saveDiagramButton.Name = "saveDiagramButton";
-            this.saveDiagramButton.Size = new System.Drawing.Size(195, 31);
+            this.saveDiagramButton.Size = new System.Drawing.Size(198, 31);
             this.saveDiagramButton.TabIndex = 1;
             this.saveDiagramButton.Text = "Zapisz Schemat";
             this.saveDiagramButton.UseVisualStyleBackColor = true;

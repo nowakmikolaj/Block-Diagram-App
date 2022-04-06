@@ -27,7 +27,7 @@ namespace BlockDiagramApp
         private const string startExistsMessage = "Schemat posiada już jeden blok startowy";
         private Buttons selectedButton;
         private Block highlightedBlock;
-
+        private Node nodeToLink;
 
         public AppForm()
         {
@@ -64,7 +64,6 @@ namespace BlockDiagramApp
             if (e.Button == MouseButtons.Left)
             {
                 Block blockToAdd = null;
-
                 switch (selectedButton)
                 {
                     case Buttons.Start:
@@ -89,6 +88,13 @@ namespace BlockDiagramApp
                         blockToAdd = new DecisionBlock(e.X, e.Y, a, b); break;
 
                     case Buttons.Link:
+                        {
+                            nodeToLink = FindNode(e.X, e.Y);
+                            if (nodeToLink != null)
+                            {
+                                Canvas.MouseMove += new MouseEventHandler(Canvas_LinkBlock);
+                            }
+                        }
                         break;
 
                     case Buttons.Trash:
@@ -117,6 +123,11 @@ namespace BlockDiagramApp
                 }
                 RepaintCanvas();
             }
+            else if(e.Button == MouseButtons.Middle && highlightedBlock != null && highlightedBlock == FindClosestBlock(e.X,e.Y))
+            {
+                Canvas.MouseMove += new MouseEventHandler(Canvas_MoveBlock);
+            }
+
 
             Canvas.Refresh();
         }
@@ -128,9 +139,36 @@ namespace BlockDiagramApp
             if (blockToDelete != null)
             {
                 if (blockToDelete is StartBlock) startExists = false;
+                foreach (Node node in blockToDelete.nodes)
+                {
+                    if (node.NextNode != null)
+                    {
+                        node.NextNode.Next = default;
+                        node.NextNode.NextNode = null;
+                    }
+                }
+
                 blocks.Remove(blockToDelete);
                 RepaintCanvas();
+                textEditor.Enabled = false;
+                textEditor.Text = "";
             }
+        }
+
+        private Node FindNode(int X, int Y, bool filled = true)
+        {
+            foreach(Block block in blocks)
+                foreach(Node node in block.nodes)
+                {
+                    if (node.Hit(X, Y))
+                    {
+                        if (filled && (node is FilledNode || node is DecisionNode))
+                            return node;
+                        if (!filled && node is EmptyNode)
+                            return node;
+                    }
+                }
+            return null;
         }
 
         private Block FindClosestBlock(int X, int Y)
@@ -230,6 +268,56 @@ namespace BlockDiagramApp
             highlightedBlock.Name = textEditor.Text;
             RepaintCanvas();
             Canvas.Refresh();
+        }
+        
+        private void Canvas_LinkBlock(object sender, MouseEventArgs e)
+        {
+            if (nodeToLink.NextNode != null)
+            {
+                nodeToLink.NextNode.NextNode = null;
+                nodeToLink.NextNode.Next = default;
+            }
+            nodeToLink.NextNode = null;
+            nodeToLink.Next = new Point(e.X, e.Y);
+            RepaintCanvas();
+            Canvas.Refresh();
+        }
+
+        private void Canvas_MoveBlock(object sender, MouseEventArgs e)
+        {
+            if (e.X < Canvas.Size.Width && e.Y < Canvas.Size.Height &&
+                e.X >= 0 && e.Y >= 0)
+                highlightedBlock.Move(e.X, e.Y);
+            RepaintCanvas();
+            Canvas.Refresh();
+        }
+
+        private void Canvas_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (nodeToLink != null)
+            {
+                Node node = FindNode(e.X, e.Y, false);
+                if (node != null)
+                {
+                    nodeToLink.Next = node.GetPoint();
+                    nodeToLink.NextNode = node;
+                    node.Next = nodeToLink.GetPoint();
+                    node.NextNode = nodeToLink;
+                }
+                else
+                {
+                    nodeToLink.Next = default;
+                    nodeToLink.NextNode = null;
+                }
+                RepaintCanvas();
+                Canvas.Refresh();
+                Canvas.MouseMove -= Canvas_LinkBlock;
+                nodeToLink = null;
+            }
+            else
+            {
+                Canvas.MouseMove -= Canvas_MoveBlock;
+            }
         }
     }
 }
