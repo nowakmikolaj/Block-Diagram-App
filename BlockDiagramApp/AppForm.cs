@@ -7,6 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.Serialization;
+using System.IO;
 
 namespace BlockDiagramApp
 {
@@ -18,32 +21,55 @@ namespace BlockDiagramApp
         private const int b = 60;
         private const float defaultPenSize = 5f;
         private const float ellipsePenSize = 8f;
+        private readonly string CreateFileExceptionMessage = "Nie udało się zapisać schematu.";
+        private readonly string SerializationExceptionMessage = "Plik jest uszkodzony.";
+        private readonly string InvalidCastExceptionMessage = "Plik jest niepoprawny.";
 
         private Bitmap bitmap;
         private Brush FillingBrush;
-
-        private List<Block> blocks;
-        private bool startExists;
         private const string startExistsMessage = "Schemat posiada już jeden blok startowy";
-        private Buttons selectedButton;
-        private Block highlightedBlock;
         private Node nodeToLink;
 
+        [Serializable]
+        internal class DiagramInfo
+        {
+            internal Buttons selectedButton;
+            internal bool startExists;
+            internal Block highlightedBlock;
+            internal List<Block> blocks;
+            internal Size bitmapSize;
+
+            public DiagramInfo(int width, int heigth)
+            {
+                blocks = new List<Block>();
+                selectedButton = Buttons.Start;
+                bitmapSize = new Size(width, heigth);
+            }
+
+            internal void Reset(int width, int height)
+            {
+                blocks.Clear();
+                startExists = false;
+                selectedButton = Buttons.Start;
+                highlightedBlock = null;
+                bitmapSize = new Size(width, height);
+            }
+        }
+
+        DiagramInfo info;
+            
         public AppForm()
         {
             InitializeComponent();
-
+            
             // Create Bitmap
             CreateBitmap(Canvas.Size.Width, Canvas.Size.Height);
 
             // Choose color of blocks
             FillingBrush = Brushes.White;
 
-            // Initialize list of blocks
-            blocks = new List<Block>();
-
-            // Keep selected radio button
-            selectedButton = Buttons.Start;
+            // Initialize diagram data
+            info = new DiagramInfo(Canvas.Size.Width, Canvas.Size.Height);
         }
         private void CreateBitmap(int width, int height)
         {
@@ -64,17 +90,17 @@ namespace BlockDiagramApp
             if (e.Button == MouseButtons.Left)
             {
                 Block blockToAdd = null;
-                switch (selectedButton)
+                switch (info.selectedButton)
                 {
                     case Buttons.Start:
-                        if (startExists)
+                        if (info.startExists)
                         {
                             MessageBox.Show(startExistsMessage);
                         }
                         else
                         {
                             blockToAdd = new StartBlock(e.X, e.Y, a, b);
-                            startExists = true;
+                            info.startExists = true;
                         }
                         break;
 
@@ -103,18 +129,18 @@ namespace BlockDiagramApp
 
                 if (blockToAdd != null)
                 {
-                    blocks.Add(blockToAdd);
+                    info.blocks.Add(blockToAdd);
                     blockToAdd.Draw(bitmap, GetPen(blockToAdd), FillingBrush);
                     blockToAdd.AddText(bitmap);
                 }
             }
             else if(e.Button == MouseButtons.Right)
             {
-                highlightedBlock = FindClosestBlock(e.X, e.Y);
-                if (highlightedBlock is OperationBlock || highlightedBlock is DecisionBlock)
+                info.highlightedBlock = FindClosestBlock(e.X, e.Y);
+                if (info.highlightedBlock is OperationBlock || info.highlightedBlock is DecisionBlock)
                 {
                     textEditor.Enabled = true;
-                    textEditor.Text = highlightedBlock.Name;
+                    textEditor.Text = info.highlightedBlock.Name;
                 }
                 else
                 {
@@ -123,7 +149,7 @@ namespace BlockDiagramApp
                 }
                 RepaintCanvas();
             }
-            else if(e.Button == MouseButtons.Middle && highlightedBlock != null && highlightedBlock == FindClosestBlock(e.X,e.Y))
+            else if(e.Button == MouseButtons.Middle && info.highlightedBlock != null && info.highlightedBlock == FindClosestBlock(e.X,e.Y))
             {
                 Canvas.MouseMove += new MouseEventHandler(Canvas_MoveBlock);
             }
@@ -138,7 +164,7 @@ namespace BlockDiagramApp
 
             if (blockToDelete != null)
             {
-                if (blockToDelete is StartBlock) startExists = false;
+                if (blockToDelete is StartBlock) info.startExists = false;
                 foreach (Node node in blockToDelete.nodes)
                 {
                     if (node.NextNode != null)
@@ -148,7 +174,7 @@ namespace BlockDiagramApp
                     }
                 }
 
-                blocks.Remove(blockToDelete);
+                info.blocks.Remove(blockToDelete);
                 RepaintCanvas();
                 textEditor.Enabled = false;
                 textEditor.Text = "";
@@ -157,7 +183,7 @@ namespace BlockDiagramApp
 
         private Node FindNode(int X, int Y, bool filled = true)
         {
-            foreach(Block block in blocks)
+            foreach(Block block in info.blocks)
                 foreach(Node node in block.nodes)
                 {
                     if (node.Hit(X, Y))
@@ -176,7 +202,7 @@ namespace BlockDiagramApp
             double distance, distanceToDelete = double.MaxValue;
             Block block = null;
 
-            foreach (Block item in blocks)
+            foreach (Block item in info.blocks)
             {
                 if (item.Hit(X, Y, out distance))
                     if (distance <= distanceToDelete)
@@ -190,9 +216,9 @@ namespace BlockDiagramApp
 
         private void RepaintCanvas()
         {
-            CreateBitmap(Canvas.Width, Canvas.Height);
+            CreateBitmap(((Point)info.bitmapSize).X, ((Point)info.bitmapSize).Y);
 
-            foreach (Block item in blocks)
+            foreach (Block item in info.blocks)
             {
                 item.Draw(bitmap, GetPen(item), FillingBrush);
                 item.AddText(bitmap);
@@ -209,7 +235,7 @@ namespace BlockDiagramApp
             else
                 pen = new Pen(Brushes.Black, defaultPenSize);
 
-            if(block == highlightedBlock)
+            if(block == info.highlightedBlock)
                 pen.DashPattern = new float[] { 2, 1 };
 
             return pen;
@@ -237,7 +263,7 @@ namespace BlockDiagramApp
             RadioButton rb = sender as RadioButton;
             if(rb.Checked)
             {
-                selectedButton = GetButtonsEnum(rb);
+                info.selectedButton = GetButtonsEnum(rb);
             }
         }
 
@@ -246,26 +272,29 @@ namespace BlockDiagramApp
         {
             NewDiagramForm diagram = new NewDiagramForm(Canvas.Size.Width, Canvas.Size.Height);
 
-            diagram.ShowDialog();
             diagram.Focus();
+            diagram.ShowDialog();
+            if (NewDiagramForm.OK_CLICKED)
+            {
 
-            Canvas.Width = diagram.newWidth;
-            Canvas.Height = diagram.newHeight;
+                Canvas.Width = diagram.newWidth;
+                Canvas.Height = diagram.newHeight;
 
-            blocks.Clear();
-            startExists = false;
+                info.Reset(Canvas.Width, Canvas.Height);
 
-            CreateBitmap(diagram.newWidth, diagram.newHeight);
-            Canvas.Refresh();
+
+                CreateBitmap(diagram.newWidth, diagram.newHeight);
+                Canvas.Refresh();
+            }
         }
 
         private void textEditor_TextChanged(object sender, EventArgs e)
         {
-            if (highlightedBlock == null || 
-                highlightedBlock is StopBlock || 
-                highlightedBlock is StartBlock) return;
+            if (info.highlightedBlock == null ||
+                info.highlightedBlock is StopBlock ||
+                info.highlightedBlock is StartBlock) return;
 
-            highlightedBlock.Name = textEditor.Text;
+            info.highlightedBlock.Name = textEditor.Text;
             RepaintCanvas();
             Canvas.Refresh();
         }
@@ -287,7 +316,7 @@ namespace BlockDiagramApp
         {
             if (e.X < Canvas.Size.Width && e.Y < Canvas.Size.Height &&
                 e.X >= 0 && e.Y >= 0)
-                highlightedBlock.Move(e.X, e.Y);
+                info.highlightedBlock.Move(e.X, e.Y);
             RepaintCanvas();
             Canvas.Refresh();
         }
@@ -317,6 +346,77 @@ namespace BlockDiagramApp
             else
             {
                 Canvas.MouseMove -= Canvas_MoveBlock;
+            }
+        }
+
+        private void saveDiagramButton_Click(object sender, EventArgs e)
+        {
+            var dialog = new SaveFileDialog();
+            dialog.Filter = "diag files (*.diag)|*.diag";
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                FileStream fs = null;
+                try
+                {
+                    fs = new FileStream(dialog.FileName, FileMode.Create);
+                }
+                catch
+                {
+                    MessageBox.Show(CreateFileExceptionMessage);
+                    return;
+                }
+                
+                BinaryFormatter bf = new BinaryFormatter();
+                bf.Serialize(fs, info);
+                fs.Close();
+            }
+            
+        }
+
+        private void loadDiagramButton_Click(object sender, EventArgs e)
+        {
+            var dialog = new OpenFileDialog();
+            dialog.Filter = "diag files (*.diag)|*.diag";
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                FileStream fs = null;
+                try
+                {
+                    fs = new FileStream(dialog.FileName, FileMode.Open);
+                }
+                catch (IOException err)
+                {
+                    MessageBox.Show(err.Message);
+                    return;
+                }
+
+                BinaryFormatter bf = new BinaryFormatter();
+                try
+                {
+                    info = (DiagramInfo)bf.Deserialize(fs);
+                }
+                catch (SerializationException)
+                {
+                    MessageBox.Show(SerializationExceptionMessage);
+                    return;
+                }
+                catch(InvalidCastException)
+                {
+                    MessageBox.Show(InvalidCastExceptionMessage);
+                    return;
+                }
+                finally
+                {
+                    fs.Close();
+                }
+
+                Canvas.Width = ((Point)info.bitmapSize).X;
+                Canvas.Height = ((Point)info.bitmapSize).Y;
+
+                startButton.Checked = true;
+                CreateBitmap(Canvas.Size.Width, Canvas.Size.Height);
+                RepaintCanvas();
+                Canvas.Refresh();
             }
         }
     }

@@ -8,6 +8,7 @@ using System.Windows.Forms;
 
 namespace BlockDiagramApp
 {
+    [Serializable]
     public abstract class Block
     {
         protected const int penSize = 2;
@@ -75,6 +76,7 @@ namespace BlockDiagramApp
         }
     }
 
+    [Serializable]
     public class OperationBlock : Block
     {
         public OperationBlock(int _x, int _y, int a, int b) 
@@ -107,6 +109,7 @@ namespace BlockDiagramApp
 
     }
 
+    [Serializable]
     public class DecisionBlock : Block
     {
         private Point[] points;
@@ -156,6 +159,7 @@ namespace BlockDiagramApp
         public override Block Copy(int _x, int _y) => new DecisionBlock(_x, _y, A, B);
     }
 
+    [Serializable]
     public abstract class EllipseBlock : Block
     {
 
@@ -187,6 +191,7 @@ namespace BlockDiagramApp
 
   }
 
+    [Serializable]
     public class StartBlock : EllipseBlock
     {
         public StartBlock(int _x, int _y, int a, int b)
@@ -199,6 +204,7 @@ namespace BlockDiagramApp
         public override Block Copy(int _x, int _y) => new StartBlock(_x, _y, A, B);
   }
 
+    [Serializable]
     public class StopBlock : EllipseBlock
     {
         public StopBlock(int _x, int _y, int a, int b)

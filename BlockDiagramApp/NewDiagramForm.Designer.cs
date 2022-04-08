@@ -41,18 +41,18 @@ namespace BlockDiagramApp
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 29);
+            this.label1.Location = new System.Drawing.Point(15, 39);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(61, 15);
+            this.label1.Size = new System.Drawing.Size(76, 20);
             this.label1.TabIndex = 0;
             this.label1.Text = "szerokość:";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(13, 72);
+            this.label2.Location = new System.Drawing.Point(15, 96);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(61, 15);
+            this.label2.Size = new System.Drawing.Size(74, 20);
             this.label2.TabIndex = 1;
             this.label2.Text = "wysokość:";
             // 
@@ -63,22 +63,23 @@ namespace BlockDiagramApp
             0,
             0,
             0});
-            this.numericUpDownWidth.Location = new System.Drawing.Point(80, 27);
+            this.numericUpDownWidth.Location = new System.Drawing.Point(91, 36);
+            this.numericUpDownWidth.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.numericUpDownWidth.Maximum = new decimal(new int[] {
             2000,
             0,
             0,
             0});
             this.numericUpDownWidth.Minimum = new decimal(new int[] {
-            50,
+            500,
             0,
             0,
             0});
             this.numericUpDownWidth.Name = "numericUpDownWidth";
-            this.numericUpDownWidth.Size = new System.Drawing.Size(124, 23);
+            this.numericUpDownWidth.Size = new System.Drawing.Size(142, 27);
             this.numericUpDownWidth.TabIndex = 2;
             this.numericUpDownWidth.Value = new decimal(new int[] {
-            50,
+            500,
             0,
             0,
             0});
@@ -90,31 +91,33 @@ namespace BlockDiagramApp
             0,
             0,
             0});
-            this.numericUpDownHeight.Location = new System.Drawing.Point(80, 70);
+            this.numericUpDownHeight.Location = new System.Drawing.Point(91, 93);
+            this.numericUpDownHeight.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.numericUpDownHeight.Maximum = new decimal(new int[] {
             2000,
             0,
             0,
             0});
             this.numericUpDownHeight.Minimum = new decimal(new int[] {
-            50,
+            500,
             0,
             0,
             0});
             this.numericUpDownHeight.Name = "numericUpDownHeight";
-            this.numericUpDownHeight.Size = new System.Drawing.Size(124, 23);
+            this.numericUpDownHeight.Size = new System.Drawing.Size(142, 27);
             this.numericUpDownHeight.TabIndex = 3;
             this.numericUpDownHeight.Value = new decimal(new int[] {
-            50,
+            500,
             0,
             0,
             0});
             // 
             // resizeBitmapButton
             // 
-            this.resizeBitmapButton.Location = new System.Drawing.Point(67, 102);
+            this.resizeBitmapButton.Location = new System.Drawing.Point(77, 136);
+            this.resizeBitmapButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.resizeBitmapButton.Name = "resizeBitmapButton";
-            this.resizeBitmapButton.Size = new System.Drawing.Size(75, 23);
+            this.resizeBitmapButton.Size = new System.Drawing.Size(86, 31);
             this.resizeBitmapButton.TabIndex = 4;
             this.resizeBitmapButton.Text = "OK";
             this.resizeBitmapButton.UseVisualStyleBackColor = true;
@@ -122,14 +125,15 @@ namespace BlockDiagramApp
             // 
             // NewDiagramForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(216, 137);
+            this.ClientSize = new System.Drawing.Size(247, 183);
             this.Controls.Add(this.resizeBitmapButton);
             this.Controls.Add(this.numericUpDownHeight);
             this.Controls.Add(this.numericUpDownWidth);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "NewDiagramForm";

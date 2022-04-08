@@ -8,6 +8,7 @@ using System.Drawing.Drawing2D;
 
 namespace BlockDiagramApp
 {
+    [Serializable]
     public abstract class Node
     {
         protected const float penSize = 1f;
@@ -46,6 +47,7 @@ namespace BlockDiagramApp
 
     }
 
+    [Serializable]
     public class EmptyNode : Node
     {
 
@@ -72,6 +74,7 @@ namespace BlockDiagramApp
         }
     }
 
+    [Serializable]
     public class FilledNode : Node
     {
         public FilledNode(int _x, int _y) : base(_x, _y) { }
@@ -98,6 +101,7 @@ namespace BlockDiagramApp
         }
     }
 
+    [Serializable]
     public class DecisionNode : FilledNode
     {
         private string decision { get; }
