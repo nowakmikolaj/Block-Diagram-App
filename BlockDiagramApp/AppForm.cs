@@ -1,15 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Runtime.Serialization;
 using System.IO;
+using System.Data;
+using System.Text;
+using System.Linq;
+using System.Drawing;
+using System.Threading;
+using System.Globalization;
+using System.Windows.Forms;
+using System.ComponentModel;
+using System.Threading.Tasks;
+using System.Collections.Generic;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace BlockDiagramApp
 {
@@ -139,13 +141,11 @@ namespace BlockDiagramApp
                 info.highlightedBlock = FindClosestBlock(e.X, e.Y);
                 if (info.highlightedBlock is OperationBlock || info.highlightedBlock is DecisionBlock)
                 {
-                    textEditor.Enabled = true;
-                    textEditor.Text = info.highlightedBlock.Name;
+                    TextUpdate(true);
                 }
                 else
                 {
-                    textEditor.Enabled = false;
-                    textEditor.Text = "";
+                    TextUpdate(false);
                 }
                 RepaintCanvas();
             }
@@ -176,8 +176,8 @@ namespace BlockDiagramApp
 
                 info.blocks.Remove(blockToDelete);
                 RepaintCanvas();
-                textEditor.Enabled = false;
-                textEditor.Text = "";
+                if(info.highlightedBlock == blockToDelete)
+                    TextUpdate(false);
             }
         }
 
@@ -267,6 +267,11 @@ namespace BlockDiagramApp
             }
         }
 
+        private void TextUpdate(bool enabled)
+        {
+            textEditor.Text = enabled ? info.highlightedBlock.Name : "";
+            textEditor.Enabled = enabled;
+        }
 
         private void newDiagramButton_Click(object sender, EventArgs e)
         {
@@ -276,7 +281,7 @@ namespace BlockDiagramApp
             diagram.ShowDialog();
             if (NewDiagramForm.OK_CLICKED)
             {
-
+                TextUpdate(false);
                 Canvas.Width = diagram.newWidth;
                 Canvas.Height = diagram.newHeight;
 
@@ -370,7 +375,6 @@ namespace BlockDiagramApp
                 bf.Serialize(fs, info);
                 fs.Close();
             }
-            
         }
 
         private void loadDiagramButton_Click(object sender, EventArgs e)
@@ -409,6 +413,9 @@ namespace BlockDiagramApp
                 {
                     fs.Close();
                 }
+
+                if (info.highlightedBlock != null)
+                    TextUpdate(true);
 
                 Canvas.Width = ((Point)info.bitmapSize).X;
                 Canvas.Height = ((Point)info.bitmapSize).Y;

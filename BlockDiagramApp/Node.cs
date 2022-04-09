@@ -33,7 +33,7 @@ namespace BlockDiagramApp
 
         public virtual bool Hit(int eX, int eY)
         {
-            return Math.Pow(eX - X, 2) + Math.Pow(eY - Y, 2) <= Math.Pow(r, 2);
+            return NextNode == null && Math.Pow(eX - X, 2) + Math.Pow(eY - Y, 2) <= Math.Pow(r, 2);
         }
 
         public virtual void Draw(Bitmap bitmap)
@@ -63,14 +63,17 @@ namespace BlockDiagramApp
         {
             using (Graphics g = Graphics.FromImage(bitmap))
             {
-                g.FillEllipse(Brushes.White, X - r / 2, Y - r / 2, r, r);
                 if (Next != default)
                 {
                     Pen pen = new Pen(Brushes.Black, penSize);
                     g.DrawLine(pen, GetPoint(), NextNode == null ? Next : NextNode.GetPoint());
                 }
+                else
+                {
+                    g.FillEllipse(Brushes.White, X - r / 2, Y - r / 2, r, r);
+                    base.Draw(bitmap);
+                }
             }
-            base.Draw(bitmap);
         }
     }
 
@@ -89,15 +92,18 @@ namespace BlockDiagramApp
         {
             using (Graphics g = Graphics.FromImage(bitmap))
             {
-                g.FillEllipse(Brushes.Black, X - r / 2, Y - r / 2, r, r);
                 if (Next != default)
                 {
                     Pen pen = new Pen(Brushes.Black, penSize);
                     pen.CustomEndCap = new AdjustableArrowCap(5, 5);
                     g.DrawLine(pen, GetPoint(), NextNode == null ? Next : NextNode.GetPoint());
                 }
+                else
+                {
+                    g.FillEllipse(Brushes.Black, X - r / 2, Y - r / 2, r, r);
+                    base.Draw(bitmap);
+                }
             }
-            base.Draw(bitmap);
         }
     }
 
