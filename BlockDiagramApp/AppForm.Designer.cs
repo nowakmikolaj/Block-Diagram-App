@@ -37,21 +37,21 @@ namespace BlockDiagramApp
             this.langLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.plButton = new System.Windows.Forms.Button();
             this.enButton = new System.Windows.Forms.Button();
+            this.fileBox = new System.Windows.Forms.GroupBox();
+            this.fileLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.newDiagramButton = new System.Windows.Forms.Button();
+            this.loadDiagramButton = new System.Windows.Forms.Button();
+            this.saveDiagramButton = new System.Windows.Forms.Button();
             this.editBox = new System.Windows.Forms.GroupBox();
             this.editLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.textEditor = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.deleteButton = new System.Windows.Forms.RadioButton();
             this.stopButton = new System.Windows.Forms.RadioButton();
             this.linkButton = new System.Windows.Forms.RadioButton();
             this.decButton = new System.Windows.Forms.RadioButton();
             this.opButton = new System.Windows.Forms.RadioButton();
             this.startButton = new System.Windows.Forms.RadioButton();
-            this.fileBox = new System.Windows.Forms.GroupBox();
-            this.fileLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.newDiagramButton = new System.Windows.Forms.Button();
-            this.loadDiagramButton = new System.Windows.Forms.Button();
-            this.saveDiagramButton = new System.Windows.Forms.Button();
+            this.textEditor = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
@@ -60,10 +60,10 @@ namespace BlockDiagramApp
             this.tableLayoutPanel3.SuspendLayout();
             this.langBox.SuspendLayout();
             this.langLayoutPanel.SuspendLayout();
-            this.editBox.SuspendLayout();
-            this.editLayoutPanel.SuspendLayout();
             this.fileBox.SuspendLayout();
             this.fileLayoutPanel.SuspendLayout();
+            this.editBox.SuspendLayout();
+            this.editLayoutPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainer
@@ -97,8 +97,8 @@ namespace BlockDiagramApp
             // 
             resources.ApplyResources(this.tableLayoutPanel3, "tableLayoutPanel3");
             this.tableLayoutPanel3.Controls.Add(this.langBox, 0, 2);
-            this.tableLayoutPanel3.Controls.Add(this.editBox, 0, 1);
             this.tableLayoutPanel3.Controls.Add(this.fileBox, 0, 0);
+            this.tableLayoutPanel3.Controls.Add(this.editBox, 0, 1);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             // 
             // langBox
@@ -127,6 +127,42 @@ namespace BlockDiagramApp
             this.enButton.Name = "enButton";
             this.enButton.UseVisualStyleBackColor = true;
             // 
+            // fileBox
+            // 
+            this.fileBox.Controls.Add(this.fileLayoutPanel);
+            resources.ApplyResources(this.fileBox, "fileBox");
+            this.fileBox.Name = "fileBox";
+            this.fileBox.TabStop = false;
+            // 
+            // fileLayoutPanel
+            // 
+            resources.ApplyResources(this.fileLayoutPanel, "fileLayoutPanel");
+            this.fileLayoutPanel.Controls.Add(this.newDiagramButton, 0, 0);
+            this.fileLayoutPanel.Controls.Add(this.loadDiagramButton, 0, 2);
+            this.fileLayoutPanel.Controls.Add(this.saveDiagramButton, 0, 1);
+            this.fileLayoutPanel.Name = "fileLayoutPanel";
+            // 
+            // newDiagramButton
+            // 
+            resources.ApplyResources(this.newDiagramButton, "newDiagramButton");
+            this.newDiagramButton.Name = "newDiagramButton";
+            this.newDiagramButton.UseVisualStyleBackColor = true;
+            this.newDiagramButton.Click += new System.EventHandler(this.newDiagramButton_Click);
+            // 
+            // loadDiagramButton
+            // 
+            resources.ApplyResources(this.loadDiagramButton, "loadDiagramButton");
+            this.loadDiagramButton.Name = "loadDiagramButton";
+            this.loadDiagramButton.UseVisualStyleBackColor = true;
+            this.loadDiagramButton.Click += new System.EventHandler(this.loadDiagramButton_Click);
+            // 
+            // saveDiagramButton
+            // 
+            resources.ApplyResources(this.saveDiagramButton, "saveDiagramButton");
+            this.saveDiagramButton.Name = "saveDiagramButton";
+            this.saveDiagramButton.UseVisualStyleBackColor = true;
+            this.saveDiagramButton.Click += new System.EventHandler(this.saveDiagramButton_Click);
+            // 
             // editBox
             // 
             this.editBox.Controls.Add(this.editLayoutPanel);
@@ -137,28 +173,15 @@ namespace BlockDiagramApp
             // editLayoutPanel
             // 
             resources.ApplyResources(this.editLayoutPanel, "editLayoutPanel");
-            this.editLayoutPanel.Controls.Add(this.textEditor, 0, 3);
-            this.editLayoutPanel.Controls.Add(this.label1, 0, 2);
             this.editLayoutPanel.Controls.Add(this.deleteButton, 2, 1);
             this.editLayoutPanel.Controls.Add(this.stopButton, 0, 1);
             this.editLayoutPanel.Controls.Add(this.linkButton, 2, 0);
             this.editLayoutPanel.Controls.Add(this.decButton, 1, 1);
             this.editLayoutPanel.Controls.Add(this.opButton, 1, 0);
             this.editLayoutPanel.Controls.Add(this.startButton, 0, 0);
+            this.editLayoutPanel.Controls.Add(this.textEditor, 2, 3);
+            this.editLayoutPanel.Controls.Add(this.label1, 1, 2);
             this.editLayoutPanel.Name = "editLayoutPanel";
-            // 
-            // textEditor
-            // 
-            this.editLayoutPanel.SetColumnSpan(this.textEditor, 3);
-            resources.ApplyResources(this.textEditor, "textEditor");
-            this.textEditor.Name = "textEditor";
-            this.textEditor.TextChanged += new System.EventHandler(this.textEditor_TextChanged);
-            // 
-            // label1
-            // 
-            resources.ApplyResources(this.label1, "label1");
-            this.editLayoutPanel.SetColumnSpan(this.label1, 3);
-            this.label1.Name = "label1";
             // 
             // deleteButton
             // 
@@ -215,41 +238,18 @@ namespace BlockDiagramApp
             this.startButton.UseVisualStyleBackColor = true;
             this.startButton.CheckedChanged += new System.EventHandler(this.selectedBlock_CheckedChanged);
             // 
-            // fileBox
+            // textEditor
             // 
-            this.fileBox.Controls.Add(this.fileLayoutPanel);
-            resources.ApplyResources(this.fileBox, "fileBox");
-            this.fileBox.Name = "fileBox";
-            this.fileBox.TabStop = false;
+            this.editLayoutPanel.SetColumnSpan(this.textEditor, 3);
+            resources.ApplyResources(this.textEditor, "textEditor");
+            this.textEditor.Name = "textEditor";
+            this.textEditor.TextChanged += new System.EventHandler(this.textEditor_TextChanged);
             // 
-            // fileLayoutPanel
+            // label1
             // 
-            resources.ApplyResources(this.fileLayoutPanel, "fileLayoutPanel");
-            this.fileLayoutPanel.Controls.Add(this.newDiagramButton, 0, 0);
-            this.fileLayoutPanel.Controls.Add(this.loadDiagramButton, 0, 2);
-            this.fileLayoutPanel.Controls.Add(this.saveDiagramButton, 0, 1);
-            this.fileLayoutPanel.Name = "fileLayoutPanel";
-            // 
-            // newDiagramButton
-            // 
-            resources.ApplyResources(this.newDiagramButton, "newDiagramButton");
-            this.newDiagramButton.Name = "newDiagramButton";
-            this.newDiagramButton.UseVisualStyleBackColor = true;
-            this.newDiagramButton.Click += new System.EventHandler(this.newDiagramButton_Click);
-            // 
-            // loadDiagramButton
-            // 
-            resources.ApplyResources(this.loadDiagramButton, "loadDiagramButton");
-            this.loadDiagramButton.Name = "loadDiagramButton";
-            this.loadDiagramButton.UseVisualStyleBackColor = true;
-            this.loadDiagramButton.Click += new System.EventHandler(this.loadDiagramButton_Click);
-            // 
-            // saveDiagramButton
-            // 
-            resources.ApplyResources(this.saveDiagramButton, "saveDiagramButton");
-            this.saveDiagramButton.Name = "saveDiagramButton";
-            this.saveDiagramButton.UseVisualStyleBackColor = true;
-            this.saveDiagramButton.Click += new System.EventHandler(this.saveDiagramButton_Click);
+            resources.ApplyResources(this.label1, "label1");
+            this.editLayoutPanel.SetColumnSpan(this.label1, 3);
+            this.label1.Name = "label1";
             // 
             // AppForm
             // 
@@ -266,11 +266,11 @@ namespace BlockDiagramApp
             this.tableLayoutPanel3.ResumeLayout(false);
             this.langBox.ResumeLayout(false);
             this.langLayoutPanel.ResumeLayout(false);
+            this.fileBox.ResumeLayout(false);
+            this.fileLayoutPanel.ResumeLayout(false);
             this.editBox.ResumeLayout(false);
             this.editLayoutPanel.ResumeLayout(false);
             this.editLayoutPanel.PerformLayout();
-            this.fileBox.ResumeLayout(false);
-            this.fileLayoutPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -293,12 +293,12 @@ namespace BlockDiagramApp
         private System.Windows.Forms.TableLayoutPanel langLayoutPanel;
         private System.Windows.Forms.RadioButton linkButton;
         private System.Windows.Forms.RadioButton startButton;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.RadioButton deleteButton;
         private System.Windows.Forms.RadioButton stopButton;
         private System.Windows.Forms.RadioButton decButton;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textEditor;
+        private System.Windows.Forms.Label label1;
     }
 }
 
